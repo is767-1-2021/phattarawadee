@@ -5,42 +5,28 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.lightGreen,
+        accentColor: Colors.white,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(color: Colors.black),
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+     initialRoute: '/menu',
+      routes: <String, WidgetBuilder> {
+        '/menu': (context) =>MenuPage(),
+      }
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -110,4 +96,115 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+ 
+ class MenuPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    final List<String> entries = <String>['Rice porridge', 'Spicy noodle salad', 'Spicy minced chicken salad','Rice porridge', 'Spicy noodle salad', 'Spicy minced chicken salad'];
+    final List<String> entries2 = <String>['160 kcal', '350 kcal', '200 kcal','160 kcal', '350 kcal', '200 kcal'];
+    final List<int> colorCodes = <int>[400, 200, 100]; 
+  
+    return Scaffold(
+      appBar: AppBar(
+         title: Text('Menu'),         
+      ),
+       body: ListView.separated(
+        padding: EdgeInsets.all(8.0), 
+        itemCount: entries.length, 
+        itemBuilder: (context, index){
+          return MenuTile(
+            item: MenuItem(
+              name: '${entries[index]}',
+              cal: '${entries2[index]}',
+              colorShade: colorCodes[index % 3],
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => Divider(),
+      ),
+    );
+  }
+}
+
+class MenuItem {
+  final String name;
+  final String cal;
+  final int colorShade;
+
+  const MenuItem(
+    {Key? key, required this.name, 
+    required this.cal, required this.colorShade});
+   
+}
+
+class MenuTile extends StatelessWidget {
+  final MenuItem item;
+
+  const MenuTile({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, 
+          MaterialPageRoute(
+            builder: (context) => MenuDetail(item: item),
+          ),
+        );
+      },
+      child: Container(
+        height: 100,
+        color: Colors.lightGreen[item.colorShade],
+        child: Center(
+          child: Text('${item.name}'),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuDetail extends StatelessWidget {
+  final MenuItem item;
+
+  const MenuDetail({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      initialIndex: 0, 
+      length: 2,
+      child: Scaffold(
+      appBar: AppBar(
+        title: Text('Menu Name: ${item.name}'),
+        bottom: TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(Icons.fastfood_sharp)
+              ),
+              Tab(
+                icon: Icon(Icons.bookmark_sharp),
+              ),
+            ],
+          ),
+      ),
+      body: TabBarView(
+          children: [
+            
+            Center(
+              child: Image.asset(
+                  'assets/Pic1.png',           
+              ),
+              
+            ),
+            Center(
+              child: Text('Cal: ${item.cal}')
+            ),
+           
+          ], 
+        ),
+      ),
+    );
+  }
+
 }
