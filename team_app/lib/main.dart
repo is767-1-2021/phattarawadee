@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:team_app/models/first_form_model.dart';
+import 'pages/menu_page.dart';
+import 'pages/note_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) =>FirstFormModel(),      
+        ),
+      ],
+      child: MyApp(),
+    ),    
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,14 +24,17 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.lightGreen,
-        accentColor: Colors.white,
+        accentColor: Colors.green,
         textTheme: TextTheme(
           bodyText2: TextStyle(color: Colors.black),
         ),
       ),
-     initialRoute: '/menu',
+     initialRoute: '/5',
       routes: <String, WidgetBuilder> {
-        '/menu': (context) =>MenuPage(),
+        '/1': (context) =>MenuPage(),
+        '/2': (context) =>NotePage(),
+        '/3': (context) =>SummaryPage(),
+        '/5': (context) =>FifthPage(),
       }
     );
   }
@@ -36,47 +52,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
-
+  void _decreaseCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+       
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+        
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+    
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -97,114 +92,79 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
- 
- class MenuPage extends StatelessWidget{
+class FifthPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final List<String> entries = <String>['Rice porridge', 'Spicy noodle salad', 'Spicy minced chicken salad','Rice porridge', 'Spicy noodle salad', 'Spicy minced chicken salad'];
-    final List<String> entries2 = <String>['160 kcal', '350 kcal', '200 kcal','160 kcal', '350 kcal', '200 kcal'];
-    final List<int> colorCodes = <int>[400, 200, 100]; 
-  
     return Scaffold(
       appBar: AppBar(
-         title: Text('Menu'),         
+        title: Text ('Grid View'),
       ),
-       body: ListView.separated(
-        padding: EdgeInsets.all(8.0), 
-        itemCount: entries.length, 
-        itemBuilder: (context, index){
-          return MenuTile(
-            item: MenuItem(
-              name: '${entries[index]}',
-              cal: '${entries2[index]}',
-              colorShade: colorCodes[index % 3],
+      body: GridView.count(
+        crossAxisCount: 2,
+        children: List.generate(7, (index){
+          return InkWell(
+            onTap: (){
+            Navigator.pushNamed(context, '/${index+1}');
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   content: Text('Tap at $index'),
+            // ));
+            },
+            child: Container(
+              margin: EdgeInsets.all(20.0), 
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Center(
+               child: Text(
+                 'Page ${index+1}',
+               style: Theme.of(context).textTheme.headline5,
+              ),
             ),
-          );
-        },
-        separatorBuilder: (context, index) => Divider(),
-      ),
-    );
-  }
-}
-
-class MenuItem {
-  final String name;
-  final String cal;
-  final int colorShade;
-
-  const MenuItem(
-    {Key? key, required this.name, 
-    required this.cal, required this.colorShade});
-   
-}
-
-class MenuTile extends StatelessWidget {
-  final MenuItem item;
-
-  const MenuTile({Key? key, required this.item}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, 
-          MaterialPageRoute(
-            builder: (context) => MenuDetail(item: item),
           ),
         );
-      },
-      child: Container(
-        height: 100,
-        color: Colors.lightGreen[item.colorShade],
-        child: Center(
-          child: Text('${item.name}'),
-        ),
-      ),
-    );
-  }
+      }),
+    ),
+  );  
+ }
+} 
+
+class SummaryPage extends StatefulWidget{
+  @override
+  _SummaryPageState createState() => _SummaryPageState();
 }
-
-class MenuDetail extends StatelessWidget {
-  final MenuItem item;
-
-  const MenuDetail({Key? key, required this.item}) : super(key: key);
+class _SummaryPageState extends State<SummaryPage> {
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0, 
-      length: 2,
-      child: Scaffold(
+  Widget build(BuildContext context){
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Menu Name: ${item.name}'),
-        bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.fastfood_sharp)
-              ),
-              Tab(
-                icon: Icon(Icons.bookmark_sharp),
-              ),
-            ],
-          ),
+        title: Text('Summary'),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.agriculture)),
+        ],
       ),
-      body: TabBarView(
+      body: Center(
+        child: Column(
           children: [
-            
-            Center(
-              child: Image.asset(
-                  'assets/Pic1.png',           
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Consumer <FirstFormModel> (
+                builder: (context, form, child) {
+                  return Text ('Menu ${form.meal} Cal ${form.calories}');
+                },
               ),
-              
             ),
-            Center(
-              child: Text('Cal: ${item.cal}')
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/2');               
+              },
+              child: Text('Fill this form please'),
             ),
-           
-          ], 
+          ],
         ),
       ),
     );
   }
-
 }
