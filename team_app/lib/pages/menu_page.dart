@@ -43,7 +43,7 @@ class MenuPage extends StatelessWidget{
         centerTitle: true,   
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/5'); 
+            Navigator.pop(context);
           }
           ,icon: Icon(Icons.menu),
         ),

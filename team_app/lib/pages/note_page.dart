@@ -55,9 +55,8 @@ class _MyNoteFormState extends State<MyNoteForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey, 
-      child: Column(
-        children: [
-          Container(height: 25.0, width: 1.0),
+          child: ListView(
+            children: <Widget>[
             Container(
               padding: EdgeInsets.all(10.0),
               width: 125.0,
@@ -169,19 +168,39 @@ class _MyNoteFormState extends State<MyNoteForm> {
             },
             initialValue: context.read<FirstFormModel>().calories.toString(),
           ),       
-          ElevatedButton(
-            onPressed: (){
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-               context.read<FirstFormModel>().meal = _meal;
-               context.read<FirstFormModel>().calories = _calories;
-               Navigator.pop(context);
-              }
-            },
-            child: Text('Add'),
-         ),
-       ],
+      Divider(
+        height: 32.0,
       ),
-    );
-  }
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: Text("Cancel"),
+                onPressed: () {
+                Navigator.pop(context);
+                } 
+              ),
+            ),     
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: Text("Submit"),
+                onPressed: (){
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  context.read<FirstFormModel>().meal = _meal;
+                  context.read<FirstFormModel>().calories = _calories;
+                  Navigator.pop(context);
+                }
+               },
+              ),
+            ),
+          ],
+       ),
+     ],
+    ),
+  );
+ }
 }
