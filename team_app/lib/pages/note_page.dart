@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:team_app/models/first_form_model.dart';
 import 'package:provider/provider.dart';
+import 'package:team_app/models/food_form_model.dart';
 
-class NotePage extends StatelessWidget{ 
+class NotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text ('Food Record',style: TextStyle(
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.bold,
-        fontSize: 25.0),),
+        title: Text(
+          'Food Record',
+          style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0),
+        ),
       ),
       body: MyNoteForm(),
     );
   }
 }
 
-class MyNoteForm extends StatefulWidget{
+class MyNoteForm extends StatefulWidget {
   @override
   _MyNoteFormState createState() => _MyNoteFormState();
 }
 
 class _MyNoteFormState extends State<MyNoteForm> {
   final _formKey = GlobalKey<FormState>();
-    List<String> _diets = [
+  List<String> _diets = [
     'None',
     'Gluten Free',
     'Ketogenic',
@@ -35,7 +38,7 @@ class _MyNoteFormState extends State<MyNoteForm> {
     'Paleo',
     'Primal',
   ];
-  String _diet = 'None';
+  String _diet = 'Vegan';
   String? _meal;
   int _calories = 0;
   int _counter = 0;
@@ -45,6 +48,7 @@ class _MyNoteFormState extends State<MyNoteForm> {
       _counter++;
     });
   }
+
   void _decreaseCounter() {
     setState(() {
       _counter--;
@@ -54,60 +58,62 @@ class _MyNoteFormState extends State<MyNoteForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey, 
-          child: ListView(
-            children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10.0),
-              width: 125.0,
-              height: 40.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17.0),
-                color: Colors.lightGreen.withOpacity(0.50),),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 25.0,
-                      width: 25.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7.0),),
-                        child: Center(
-                          child: IconButton(
-                          onPressed: _decreaseCounter,
-                          icon: Icon(Icons.remove),
-                          color: Colors.white,
-                          ),
-                       ),
+      key: _formKey,
+      child: ListView(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10.0),
+            width: 125.0,
+            height: 40.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17.0),
+              color: Colors.lightGreen.withOpacity(0.50),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 25.0,
+                    width: 25.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
+                    child: Center(
+                      child: IconButton(
+                        onPressed: _decreaseCounter,
+                        icon: Icon(Icons.remove),
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                      Text('$_counter',
-                      style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Montserrat',
-                      fontSize: 15.0)),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 25.0,
-                      width: 25.0,
-                      decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7.0),),
-                        child: Center(
-                          child: IconButton( 
-                            onPressed: _incrementCounter,
-                            icon: Icon(Icons.add),
-                            color: Colors.white,
-                            ),
-                        ),
+                ),
+                Text('$_counter',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontSize: 15.0)),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 25.0,
+                    width: 25.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
+                    child: Center(
+                      child: IconButton(
+                        onPressed: _incrementCounter,
+                        icon: Icon(Icons.add),
+                        color: Colors.white,
                       ),
-                  )
-             ],
-        ),
-      ),
-
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
@@ -123,35 +129,33 @@ class _MyNoteFormState extends State<MyNoteForm> {
             onSaved: (value) {
               _meal = value;
             },
-          initialValue: context.read<FirstFormModel>().meal,
+            initialValue: context.read<FoodFormModel>().meal,
           ),
-          
           DropdownButtonFormField(
-                    items: _diets.map((String priority) {
-                      return DropdownMenuItem(
-                        value: priority,
-                        child: Text(
-                          priority,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                    decoration: InputDecoration(
-                      labelText: 'Diet',
-                      labelStyle: TextStyle(fontSize: 18.0),
-                    ),  
-                     onChanged: (value) {
-                       setState(() {
-                        _diet = value.toString();
-                      });
-                    },
-                    value: _diet,
+            items: _diets.map((String priority) {
+              return DropdownMenuItem(
+                value: priority,
+                child: Text(
+                  priority,
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 18.0,
                   ),
-                  
-       TextFormField(
+                ),
+              );
+            }).toList(),
+            decoration: InputDecoration(
+              labelText: 'Diet',
+              labelStyle: TextStyle(fontSize: 18.0),
+            ),
+            onChanged: (value) {
+              setState(() {
+                _diet = value.toString();
+              });
+            },
+            value: _diet,
+          ),
+          TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
               labelText: 'Enter Calories',
@@ -163,44 +167,43 @@ class _MyNoteFormState extends State<MyNoteForm> {
               }
               return null;
             },
-             onSaved: (value) {
+            onSaved: (value) {
               _calories = int.parse(value!);
             },
-            initialValue: context.read<FirstFormModel>().calories.toString(),
-          ),       
-      Divider(
-        height: 32.0,
+            initialValue: context.read<FoodFormModel>().calories.toString(),
+          ),
+          Divider(
+            height: 32.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  child: Text("Submit"),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      context.read<FoodFormModel>().meal = _meal;
+                      context.read<FoodFormModel>().calories = _calories;
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                child: Text("Cancel"),
-                onPressed: () {
-                Navigator.pop(context);
-                } 
-              ),
-            ),     
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                child: Text("Submit"),
-                onPressed: (){
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  context.read<FirstFormModel>().meal = _meal;
-                  context.read<FirstFormModel>().calories = _calories;
-                  Navigator.pop(context);
-                }
-               },
-              ),
-            ),
-          ],
-       ),
-     ],
-    ),
-  );
- }
+    );
+  }
 }
