@@ -6,7 +6,7 @@ class DrinksHistory extends StatefulWidget{
   @override
   _DrinksHistoryState createState() => _DrinksHistoryState();
 }
-class _DrinksHistoryState extends State<DrinksHistoryPage> {
+class _DrinksHistoryState extends State<DrinksHistory> {
 
   @override
   Widget build(BuildContext context){

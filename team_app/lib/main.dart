@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:team_app/models/drinks_form_model.dart';
+import 'package:team_app/pages/HomeScreen.dart';
 
 import 'models/first_form_model.dart';
 import 'models/food_form_model.dart';
 import 'pages/BMICalculatorScreen.dart';
 import 'pages/Home_menu.dart';
+import 'pages/daily_drink.dart';
+import 'pages/drink_history_page.dart';
 import 'pages/note_page.dart';
 import 'pages/workout.dart';
 import 'pages/sitemap.dart';
@@ -23,6 +27,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => FoodFormModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DrinksFormModel(),
         ),
       ],
       child: MyApp(),
@@ -45,8 +52,8 @@ class MyApp extends StatelessWidget {
           
         ),
         ),
-    
-        initialRoute: '/1',
+       
+        initialRoute: '/14',
         routes: <String, WidgetBuilder>{
           '/1': (context) => Welcome(),
           '/2': (context) => BMICalculatorScreen(),
@@ -59,6 +66,10 @@ class MyApp extends StatelessWidget {
           '/9': (context) => workout(),
           '/10': (context) => result(),
           '/11': (context) => NotePage(),
+          '/12': (context) => Drinks(),
+          '/13': (context) => DrinksHistory(),
+          '/14': (context) => HomeScreen(),
+
           
         });
   }
