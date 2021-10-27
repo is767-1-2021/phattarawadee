@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:team_app/models/drinks_form_model.dart';
-import 'package:team_app/pages/HomeScreen.dart';
+
 
 import 'models/first_form_model.dart';
 import 'models/food_form_model.dart';
 import 'pages/BMICalculatorScreen.dart';
+import 'pages/HomePage.dart';
 import 'pages/Home_menu.dart';
+import 'pages/LoadingPage.dart';
+import 'pages/WelcomePage.dart';
 import 'pages/daily_drink.dart';
 import 'pages/drink_history_page.dart';
 import 'pages/note_page.dart';
+import 'pages/test.dart';
+import 'pages/webview.dart';
 import 'pages/workout.dart';
 import 'pages/sitemap.dart';
 import 'pages/menu_page.dart';
@@ -37,22 +44,28 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primaryColor: Colors.greenAccent,
-          scaffoldBackgroundColor: Colors.teal[50],
+         scaffoldBackgroundColor: Colors.teal[50],
          textTheme: TextTheme(
           bodyText2: TextStyle(color: Colors.black,
           fontFamily: 'Montserrat',),
       
           
         ),
-        ),
-       
+       ),
+     
+  
         initialRoute: '/14',
         routes: <String, WidgetBuilder>{
           '/1': (context) => Welcome(),
@@ -68,9 +81,13 @@ class MyApp extends StatelessWidget {
           '/11': (context) => NotePage(),
           '/12': (context) => Drinks(),
           '/13': (context) => DrinksHistory(),
-          '/14': (context) => HomeScreen(),
+          '/14': (context) => WebViewExample(),
+          '/15': (context) => TestApp(),
+        }
 
-          
-        });
+  
+
+  
+        );
   }
 }

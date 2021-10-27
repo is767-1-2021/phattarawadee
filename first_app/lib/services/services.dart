@@ -22,3 +22,7 @@ class HttpServices{
     throw Exception('Failed to load todos');
   } 
 }
+
+class FirebaseService {
+  
+}
