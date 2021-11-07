@@ -22,8 +22,8 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -38,9 +38,9 @@ android {
         applicationId "com.example.first_app"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
         multiDexEnabled true
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName   
     }
 
     buildTypes {

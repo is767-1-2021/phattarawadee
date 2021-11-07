@@ -18,4 +18,11 @@ class TodoController{
     onSyncController.add(false);
     return todos;
   }
+
+  Future<void> updateTodos(int id, bool completed) async {
+     onSyncController.add(true);
+     await services.updateTodos(id, completed);
+     onSyncController.add(false);
+    
+  }
 }

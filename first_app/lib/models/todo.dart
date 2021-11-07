@@ -18,6 +18,7 @@ class Todo {
       json['completed'] as bool,
     );
   }
+
 }
 
 class AllTodos {
@@ -37,4 +38,5 @@ class AllTodos {
 
     return AllTodos(todos);
   }
+  
 }
