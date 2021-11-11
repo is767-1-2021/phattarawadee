@@ -17,24 +17,24 @@ class FirebaseServices extends Services {
     AllTodos todos = AllTodos.fromSnapshot(snapshot);
     return todos.todos;
   }
-
+ @override
     CollectionReference todos = FirebaseFirestore.instance.collection('todos');
     Future<void> updateTodos(int id, bool completed) async {
-      await FirebaseFirestore.instance
+        await FirebaseFirestore.instance
         .collection('todos')
         .where('id', isEqualTo: id)
         .get()
         .then((QuerySnapshot querySnapshot) {
-        return todos
-              .doc(todos.id)
-              .update({'completed': completed})
-              .then((value) => print("todos updated"))
-              .catchError((error) => print("Failed to update todos : $error"));
-        });
-        
-    }
+           querySnapshot.docs.forEach((doc) {
+           todos
+            .doc(doc.id)
+            .update({'completed': completed})
+            .then((value) => print("todos updated"))
+            .catchError((error) => print("Failed to update todos : $error"));
+      });
+    });
   }
-
+}
 
 class HttpServices {
   Client client = Client();
@@ -54,4 +54,5 @@ class HttpServices {
 
     throw Exception('Failed to load todos');
   }
+
 }

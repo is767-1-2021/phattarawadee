@@ -33,8 +33,8 @@ class _TodoPageState extends State<TodoPage> {
     });
   }
 
-  void _updateTodos(int id, bool completed) async {
-     await widget.controller.updateTodos(id, completed);
+    void _updateTodos(int id, bool completed) async {
+    await widget.controller.updateTodo(id, completed);
   }
 
   Widget get body => isLoading
@@ -47,12 +47,13 @@ class _TodoPageState extends State<TodoPage> {
         }
 
         return CheckboxListTile(
-           onChanged: (bool? completed) {
+            onChanged: (bool? completed) {
                 setState(() {
-                   todos[index].completed = completed!;
+                  todos[index].completed = completed!;
                   _updateTodos(todos[index].id, completed);
                 });
               },
+              //onChanged: null,
           value: todos[index].completed,
           title: Text(todos[index].title),
         );

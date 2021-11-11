@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:team_app/models/drinks_form_model.dart';
 
@@ -8,14 +6,10 @@ import 'package:team_app/models/drinks_form_model.dart';
 import 'models/first_form_model.dart';
 import 'models/food_form_model.dart';
 import 'pages/BMICalculatorScreen.dart';
-import 'pages/HomePage.dart';
 import 'pages/Home_menu.dart';
-import 'pages/LoadingPage.dart';
-import 'pages/WelcomePage.dart';
 import 'pages/daily_drink.dart';
 import 'pages/drink_history_page.dart';
 import 'pages/note_page.dart';
-import 'pages/test.dart';
 import 'pages/webview.dart';
 import 'pages/workout.dart';
 import 'pages/sitemap.dart';
@@ -82,7 +76,7 @@ class _MyAppState extends State<MyApp> {
           '/12': (context) => Drinks(),
           '/13': (context) => DrinksHistory(),
           '/14': (context) => WebViewExample(),
-          '/15': (context) => TestApp(),
+        
         }
 
   

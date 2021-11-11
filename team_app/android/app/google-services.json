@@ -62,35 +62,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:818638033842:android:4ba0ebe9d5b8293ff18aab",
-        "android_client_info": {
-          "package_name": "com.example.todo_app_firestore_example"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBWHsos8W2x0m_6OnFRUmpeKzCrWUWmbuY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
