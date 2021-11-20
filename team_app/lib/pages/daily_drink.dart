@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:team_app/models/drinks_form_model.dart';
 import 'package:provider/provider.dart';
+import 'package:team_app/controllers/drinks_controller.dart';
+import 'package:team_app/pages/drink_history_page.dart';
+import 'package:team_app/services/drinks_services.dart';
 
 class Drinks extends StatelessWidget{ 
   @override
@@ -25,6 +29,7 @@ class MyCustomDrinksForm extends StatefulWidget{
 
 class _MyCustomDrinksFormState extends State<MyCustomDrinksForm> {
   final _formKey = GlobalKey<FormState>();
+  int? _id;
   String? _drinks;
   int? _calories;
   String? _date;
@@ -101,6 +106,7 @@ class _MyCustomDrinksFormState extends State<MyCustomDrinksForm> {
                   child: Text("Cancel"),
                   onPressed: () {
                     Navigator.pop(context);
+                    
                   } 
                 ),
               ),  
@@ -108,23 +114,51 @@ class _MyCustomDrinksFormState extends State<MyCustomDrinksForm> {
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   child: Text("Submit"),
-                  onPressed: (){
+                  onPressed: () async {
+                    var services = FirebaseServices();
+                    var controller = DrinkController(services);
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
 
-                      context.read<DrinksFormModel>().date = _date;
+                      await FirebaseFirestore.instance
+                      .collection('group_deals')
+                      .add({
+                    'createddrinks': 'drinks',
+                    'id': _id,
+                    'drinks': _drinks,
+                    'calories': _calories,
+                    'date': _date,
+                   
+                  });
+                  /*ใส่ function addDeal*/
+                  /*ใส่ snackbar โชว์ว่าอัพเดทไปแล้ว*/
+                  /*pushReplacement ให้ใส่หน้าใหม่เข้ามาแทน+รีเฟรชด้วย แทนหน้าเดิม*/
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DrinksHistory(controller: controller)));
+                }
+              },
+                
+              
+
+                     /* context.read<DrinksFormModel>().date = _date;
                       context.read<DrinksFormModel>().drinks = _drinks;
                       context.read<DrinksFormModel>().calories = _calories;
                       
                       Navigator.pop(context);
-                    }
-                  },
+                      */
+              
+                    
+                    
                 ),
-              ),
+                ),
             ],
           ),
         ],
       ),
-    );
+      );
   }
 }

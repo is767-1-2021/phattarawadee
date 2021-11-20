@@ -1,12 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:team_app/models/drink.dart';
 import 'package:team_app/models/drinks_form_model.dart';
+import 'package:team_app/controllers/drinks_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:team_app/services/drinks_services.dart';
 
 class DrinksHistory extends StatefulWidget{
+  final DrinkController controller;
+  DrinksHistory({required this.controller});
+
   @override
   _DrinksHistoryState createState() => _DrinksHistoryState();
 }
 class _DrinksHistoryState extends State<DrinksHistory> {
+List<Drink> drinks = List.empty();
+  bool isLoading = false;
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    _getDrinks();
+    super.initState();
+
+    widget.controller.onSync
+        .listen((bool synState) => setState(() => isLoading = synState));
+  }
+
+  void _getDrinks() async {
+    var newDrinks = await widget.controller.fectDrinks();
+
+    setState(() {
+      drinks = newDrinks;
+    });
+  }
+   Widget get body => isLoading
+      ? CircularProgressIndicator()
+      : SingleChildScrollView(
+         physics: NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.only(top: 5),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.all(10),
+                    itemCount: drinks.isEmpty ? 1 : drinks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Drink ds = drinks[index];
+                      if (drinks.isNotEmpty) {
+                        return InkWell(
+                          onTap: () {
+                          },
+                          child: Card(
+                            margin: EdgeInsets.only(top: 5.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: 100.0,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  /*Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      width: 70.0,
+                                      height: 70.0,
+                                      child: Icon(
+                                        drinks[index].category ==
+                                                'id'
+                                            ? Icons.dinner_dining
+                                            : drinks[index].category ==
+                                                    'drinks'
+                                                ? Icons.tv
+                                                : drinks[index].category ==
+                                                        'cal'
+                                                    ? Icons.landscape
+                                                    : drinks[index].category ==
+                                                            'date'
+                                      
+                                                            ? Icons.money
+                                                            : null,
+                                        size: 35.0,
+                                      ),
+                                    ),
+                                  ),*/
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(drinks[index].id.toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20.0)),
+                                        Text(drinks[index].drinks,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(fontSize: 16.0)),
+                                        Wrap(
+                                          spacing: 100.0,
+                                          children: [
+                                            Text(
+                                              drinks[index].calories.toString(),
+                                              style: TextStyle(fontSize: 14.0),
+                                            ),
+                                            Text(drinks[index].date,
+                                                style:
+                                                    TextStyle(fontSize: 14.0)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                        width: 35.0,
+                                        height: 35.0,
+                                        child: Icon(Icons.favorite_border)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Text('');
+                      }
+                      } //     snapshot.data!.docs[index];
+                    ),
+              )
+            ],
+          ),
+        );
 
   @override
   Widget build(BuildContext context){
@@ -32,7 +166,7 @@ class _DrinksHistoryState extends State<DrinksHistory> {
           ),
         ],
       ), 
-      body: Center(
+     /* body: Center(
         child: Column(
           children: [
             Padding(
@@ -40,6 +174,7 @@ class _DrinksHistoryState extends State<DrinksHistory> {
               child: Consumer <DrinksFormModel> (
                 builder: (context, form, child) {
                   return Text ('Today ${form.date}, You drink ${form.drinks}  ${form.calories} kcal');
+                 
                 },
               ),
             ),
@@ -182,7 +317,8 @@ class _DrinksHistoryState extends State<DrinksHistory> {
             ),
           ],
         ),
-      ),  
+      ), 
+      */ 
     );
   }
 }
