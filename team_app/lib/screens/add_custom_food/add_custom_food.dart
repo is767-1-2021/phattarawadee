@@ -121,11 +121,7 @@ class _AddCustomFoodState extends State<AddCustomFood> {
                 color : Colors.grey[300]
               ),
               child: Center(
-                child: GestureDetector(
-                  onTap: (){
-                    selectTime();
-                  },
-                  child: TextField(
+                child: TextField(
                     style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
                     readOnly: true,
                     enabled: false,
@@ -134,13 +130,10 @@ class _AddCustomFoodState extends State<AddCustomFood> {
                       hintText: "Dish",
                       hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
                       border: InputBorder.none,
-                    ),
                   ),
                 ),
               ),
-            ),
-
-          
+            ),       
 
             Container(
               margin: EdgeInsets.only(top: 20),
