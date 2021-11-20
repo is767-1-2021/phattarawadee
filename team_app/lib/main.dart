@@ -1,4 +1,5 @@
 import 'package:exercise_app/screens/home/drinkpage.dart';
+import 'package:exercise_app/screens/home/foodpage.dart';
 import 'package:exercise_app/screens/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomeScreen(),
-        initialRoute: '/eleven',
+        initialRoute: '/twelve',
         routes: <String, WidgetBuilder>{
           '/one': (context) => Welcome(),
           '/two': (context) => BMICalculatorScreen(),
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           '/nine': (context) => workout(),
           '/ten': (context) => result(),
           '/eleven': (context) => DrinkPage(),
+          '/twelve': (context) => FoodPage(),
         });
   }
 }
