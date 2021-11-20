@@ -15,38 +15,18 @@ class _AddCustomDrinkState extends State<AddCustomDrink> {
 
   TextEditingController drinkName = TextEditingController();
   TextEditingController kcal = TextEditingController();
-  TextEditingController timeField = TextEditingController();
+  TextEditingController cup = TextEditingController();
   TimeOfDay? timeUser;
 
-  Future<void> selectTime() async {
-    DateTime showTime = DateTime.now();
-    showTime = new DateTime(showTime.year, showTime.month, showTime.day, 1, 0, 0, 0, 0);
-
-    final time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(showTime),
-      initialEntryMode: TimePickerEntryMode.dial
-    );
-
-    if(time != null)
-    {
-      timeUser = time;
-      timeField.text = (time.minute >0) ? "${time.hour}:${time.minute}" : "${time.hour}";
-      setState(() {});
-    }
-  }
-
   void saveDrink(){
-    int totalCups = (timeUser!.hour * 60) + timeUser!.minute;
+    int totalCups =  int.parse(cup.text);
     Drink customDrink = Drink.fromEmpty();
     customDrink.drinkId = DateTime.now().millisecondsSinceEpoch.toString();
-    customDrink.drinkName = drinkName.text;
+    customDrink.drinkName = drinkName.text; 
     customDrink.totalCups = totalCups;
     customDrink.drinkKCalPerCup = int.parse(kcal.text);
-    customDrink.caloriesPerMinute = customDrink.drinkKCalPerCup/customDrink.totalCups;
-    customDrink.userTimeMinutesSelected = totalCups;
-    customDrink.userTimeSelected = (timeUser!.minute >0) ? "${timeUser!.hour}:${timeUser!.minute}" : "${timeUser!.hour}";
-    customDrink.userTimeBasedCalories = (customDrink.userTimeMinutesSelected * customDrink.caloriesPerMinute).toInt();
+    customDrink.userCupSelected = int.parse(cup.text);
+    customDrink.userBasedCalories = (customDrink.drinkKCalPerCup * int.parse(cup.text)).toInt();
     Get.back(result: customDrink);
   }
 
@@ -121,26 +101,19 @@ class _AddCustomDrinkState extends State<AddCustomDrink> {
                 color : Colors.grey[300]
               ),
               child: Center(
-                child: GestureDetector(
-                  onTap: (){
-                    selectTime();
-                  },
-                  child: TextField(
-                    style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
-                    readOnly: true,
-                    enabled: false,
-                    controller: timeField,
-                    decoration: new InputDecoration(
-                      hintText: "Cup",
-                      hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
-                      border: InputBorder.none,
-                    ),
-                  ),
+                 child: TextField(
+                  style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
+                  controller: cup,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType : TextInputType.number,
+                  decoration: new InputDecoration(
+                    hintText: "Cup",
+                    hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
+                    border: InputBorder.none,
+                     ),
                 ),
               ),
             ),
-
-          
 
             Container(
               margin: EdgeInsets.only(top: 20),
@@ -177,7 +150,7 @@ class _AddCustomDrinkState extends State<AddCustomDrink> {
                           Constants.showDialog('Please enter exercise name');
                         else if(kcal.text.isEmpty)
                           Constants.showDialog('Please enter calories');
-                        else if(timeField.text.isEmpty)
+                        else if(cup.text.isEmpty)
                           Constants.showDialog('Please enter cup');
                         else
                         {

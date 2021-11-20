@@ -49,8 +49,8 @@ class _DrinkPageState extends State<DrinkPage> {
     int calories = 0;
     for(int i=0; i < selectedDateDrinks.length; i++)
     {
-      totalCupsOfDrink = (selectedDateDrinks[i].userTimeMinutesSelected) + totalCupsOfDrink;
-      calories = selectedDateDrinks[i].userTimeBasedCalories + calories;
+      totalCupsOfDrink = (selectedDateDrinks[i].userCupSelected) + totalCupsOfDrink;
+      calories = selectedDateDrinks[i].userBasedCalories + calories;
     }
     totalCalories = calories.toString();
     RegExp regex = RegExp(r"([.]*0)(?!.*\d)");
@@ -318,7 +318,7 @@ class _DrinkPageState extends State<DrinkPage> {
         subtitle: Container(
           margin: EdgeInsets.only(top: 5),
           child: Text(
-            '${drink.userTimeSelected} cup',
+            '${drink.userCupSelected} cup',
             style: TextStyle(
               fontSize: SizeConfig.fontSize * 1.8,
               fontWeight: FontWeight.w500,
@@ -329,7 +329,7 @@ class _DrinkPageState extends State<DrinkPage> {
         trailing: Container(
           margin: EdgeInsets.only(right: 10),
           child: Text(
-            '${drink.userTimeBasedCalories}',
+            '${drink.userBasedCalories}',
             style: TextStyle(
               fontSize: SizeConfig.fontSize * 1.8,
               fontWeight: FontWeight.w500,

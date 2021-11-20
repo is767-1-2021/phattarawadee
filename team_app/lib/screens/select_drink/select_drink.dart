@@ -40,31 +40,6 @@ class _SelectDrinkState extends State<SelectDrink> {
     });
   }
 
-  Future<void> selectTime() async {
-    DateTime showTime = DateTime.now();
-    showTime = new DateTime(showTime.year, showTime.month, showTime.day, 1, 0, 0, 0, 0);
-
-    final time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(showTime),
-      initialEntryMode: TimePickerEntryMode.dial
-    );
-
-    if(time == null)
-      print('Time canceled');
-    else
-    {
-      print(time.hour);
-      int totalMinutes = (time.hour * 60) + time.minute;
-      selectedDrink!.userTimeMinutesSelected = totalMinutes;
-      selectedDrink!.userTimeSelected = (time.minute >0) ? "${time.hour}:${time.minute}" : "${time.hour}";
-      selectedDrink!.userTimeBasedCalories = (selectedDrink!.userTimeMinutesSelected * selectedDrink!.caloriesPerMinute).toInt();
-      widget.selectedDayDrinkList.add(selectedDrink!); 
-      //remove selected exercise from list
-      drinks.removeWhere((drink) => drink.drinkId == selectedDrink!.drinkId);
-      setState(() {});
-    }
-  }
 
   Future<void> showCustomDrinkDialog() async {
     dynamic customCategoryAdded = await Get.generalDialog(
@@ -146,7 +121,7 @@ class _SelectDrinkState extends State<SelectDrink> {
                   onChanged: (data) {
                     setState(() {
                       selectedDrink = data;  
-                      selectTime();
+                  
                     });
                   },
                   showSearchBox: true,
@@ -202,7 +177,7 @@ class _SelectDrinkState extends State<SelectDrink> {
     );
   }
 
-  Widget _customDropDownExample(BuildContext context, Drink? exercise, String itemDesignation) {
+  Widget _customDropDownExample(BuildContext context, Drink? drink, String itemDesignation) {
     return Container(
       child :Text(
         'Search for Drinks',
@@ -233,7 +208,7 @@ class _SelectDrinkState extends State<SelectDrink> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${drink.userTimeSelected} cup',
+                '${drink.userCupSelected} cup',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -243,7 +218,7 @@ class _SelectDrinkState extends State<SelectDrink> {
 
 
               Text(
-                '${drink.userTimeBasedCalories} kcal',
+                '${drink.userBasedCalories} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,

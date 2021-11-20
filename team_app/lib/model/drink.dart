@@ -8,10 +8,8 @@ class Drink{
   String drinkName = "";
   int drinkKCalPerCup = 0;
   int totalCups = 0;
-  double caloriesPerMinute = 0;
-  int userTimeMinutesSelected = 0;
-  String userTimeSelected = '';
-  int userTimeBasedCalories = 0;
+  int userCupSelected = 0;
+  int userBasedCalories = 0;
 
   Drink(Map data)
   {
@@ -19,7 +17,8 @@ class Drink{
     drinkName = data["drinkName"];
     totalCups = data['totalCups'];
     drinkKCalPerCup =  data["kcal"];
-    caloriesPerMinute =  data["timePerMinute"];
+    userCupSelected = data["userCupSelected"];
+    userBasedCalories = data["userBasedCalories"];
   }
 
   Drink.fromEmpty(); 
@@ -29,11 +28,9 @@ class Drink{
       "drinkId": this.drinkId,
       "drinkName": this.drinkName,
       "totalCups": this.totalCups,    
-      "drinkKCalPerCup": this.drinkKCalPerCup,    
-      "caloriesPerMinute": this.caloriesPerMinute,  
-      "userTimeMinutesSelected": this.userTimeMinutesSelected,  
-      "userTimeSelected": this.userTimeSelected,  
-      "userTimeBasedCalories": this.userTimeBasedCalories,  
+      "drinkKCalPerCup": this.drinkKCalPerCup, 
+      "userCupSelected" : this.userCupSelected,   
+      "userBasedCalories": this.userBasedCalories 
     };
   }
 
@@ -42,10 +39,9 @@ class Drink{
     drinkName = data["drinkName"];
     totalCups = data['totalCups'];
     drinkKCalPerCup =  data["drinkKCalPerCup"];
-    caloriesPerMinute =  data["caloriesPerMinute"];
-    userTimeMinutesSelected =  data["userTimeMinutesSelected"];
-    userTimeSelected =  data["userTimeSelected"];
-    userTimeBasedCalories =  data["userTimeBasedCalories"];
+    userCupSelected = data["userCupSelected"];
+    userBasedCalories = data["userBasedCalories"];
+    
   }
 
   static Future<void> saveDrinksForDate(DateTime dateTime, List<Drink> drinkList) async {
