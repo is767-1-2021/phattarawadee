@@ -116,7 +116,7 @@ class _SelectDrinkState extends State<SelectDrink> {
                   hint: "Search for Drinks",
                   items: drinks,
                   itemAsString: (Drink u){
-                    return u.drinkName + '\n' + u.totalCups.toString() + "cups"+ "hours" + " - " + u.drinkKCalPerCup.toString();
+                    return u.drinkName + '\n' + u.totalCups.toString() + "cups" + " - " + u.drinkKCalPerCup.toString();
                   },
                   onChanged: (data) {
                     setState(() {
@@ -143,7 +143,7 @@ class _SelectDrinkState extends State<SelectDrink> {
                 itemCount: widget.selectedDayDrinkList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return selectedDrinkCell(widget.selectedDayDrinkList[index]);
+                  return selectedDrinkCell(widget.selectedDayDrinkList[index], index);
                 })
               ),
             )
@@ -186,7 +186,7 @@ class _SelectDrinkState extends State<SelectDrink> {
     );
   }
 
-  Widget selectedDrinkCell(Drink drink){
+  Widget selectedDrinkCell(Drink drink, int index){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
@@ -195,12 +195,25 @@ class _SelectDrinkState extends State<SelectDrink> {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text(
-          '${drink.drinkName}',
-          style: TextStyle(
-            fontSize: SizeConfig.fontSize * 2.2,
-            fontWeight: FontWeight.w500
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${drink.drinkName}',
+              style: TextStyle(
+                fontSize: SizeConfig.fontSize * 2.2,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                widget.selectedDayDrinkList.removeAt(index);
+                setState(() {});
+                await Drink.saveDrinksForDate(widget.selectedDate, widget.selectedDayDrinkList); 
+              },
+              child: Icon(Icons.remove_circle, color: Colors.red,)
+            )
+          ],
         ),
         subtitle: Container(
           margin: EdgeInsets.only(top: 5),
