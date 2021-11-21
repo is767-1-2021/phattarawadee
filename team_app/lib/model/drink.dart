@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Drink{
 
   String drinkId = '';
   String drinkName = "";
-  int drinkKCalPerCup = 0;
+  double drinkKCalPerCup = 0;
+  int totalkcal = 0;
   int totalCups = 0;
   int userCupSelected = 0;
   int userBasedCalories = 0;
@@ -15,8 +18,9 @@ class Drink{
   {
     drinkId = data["drinkId"];
     drinkName = data["drinkName"];
-    totalCups = data['totalCups'];
     drinkKCalPerCup =  data["kcal"];
+    totalkcal = data['totalkcal'];
+    totalCups = data['totalCups'];
     userCupSelected = data["userCupSelected"];
     userBasedCalories = data["userBasedCalories"];
   }
@@ -26,9 +30,10 @@ class Drink{
   Map<String, dynamic> toJson() {
     return {
       "drinkId": this.drinkId,
-      "drinkName": this.drinkName,
-      "totalCups": this.totalCups,    
+      "drinkName": this.drinkName,  
       "drinkKCalPerCup": this.drinkKCalPerCup, 
+      "totalkcal": this.totalkcal,  
+      "totalCups": this.totalCups,  
       "userCupSelected" : this.userCupSelected,   
       "userBasedCalories": this.userBasedCalories 
     };
@@ -37,8 +42,9 @@ class Drink{
   Drink.fromSavedJson(Map<String, dynamic> data) {
     drinkId = data["drinkId"];
     drinkName = data["drinkName"];
-    totalCups = data['totalCups'];
     drinkKCalPerCup =  data["drinkKCalPerCup"];
+    totalkcal = data['totalkcal'];
+    totalCups = data['totalCups'];
     userCupSelected = data["userCupSelected"];
     userBasedCalories = data["userBasedCalories"];
     
@@ -71,3 +77,11 @@ class Drink{
     return savedListForDate;
   }
 }
+
+
+
+  
+ 
+ 
+
+  

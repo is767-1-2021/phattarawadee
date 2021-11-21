@@ -13,40 +13,20 @@ class AddCustomFood extends StatefulWidget {
 
 class _AddCustomFoodState extends State<AddCustomFood> {
 
-  TextEditingController FoodName = TextEditingController();
+  TextEditingController foodName = TextEditingController();
   TextEditingController kcal = TextEditingController();
-  TextEditingController timeField = TextEditingController();
+  TextEditingController dish = TextEditingController();
   TimeOfDay? timeUser;
 
-  Future<void> selectTime() async {
-    DateTime showTime = DateTime.now();
-    showTime = new DateTime(showTime.year, showTime.month, showTime.day, 1, 0, 0, 0, 0);
-
-    final time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(showTime),
-      initialEntryMode: TimePickerEntryMode.dial
-    );
-
-    if(time != null)
-    {
-      timeUser = time;
-      timeField.text = (time.minute >0) ? "${time.hour}:${time.minute}" : "${time.hour}";
-      setState(() {});
-    }
-  }
-
-  void saveFood(){
-    int totalDishes = (timeUser!.hour * 60) + timeUser!.minute;
+   void saveFood(){
+    int totalCups =  int.parse(dish.text);
     Food customFood = Food.fromEmpty();
     customFood.foodId = DateTime.now().millisecondsSinceEpoch.toString();
-    customFood.foodName = FoodName.text;
-    customFood.totalDishes = totalDishes;
+    customFood.foodName = foodName.text; 
+    customFood.totalDishes = totalCups;
     customFood.foodKCalPerDish = int.parse(kcal.text);
-    //customFood.caloriesPerMinute = customFood.foodKCalPerDish/customFood.totalDishes;
-    //customFood.userTimeMinutesSelected = totalDishes;
-    //customFood.userTimeSelected = (timeUser!.minute >0) ? "${timeUser!.hour}:${timeUser!.minute}" : "${timeUser!.hour}";
-    //customFood.userTimeBasedCalories = (customFood.userTimeMinutesSelected * customFood.caloriesPerMinute).toInt();
+    customFood.userDishselected = int.parse(dish.text);
+    customFood.userBasedCalories = (customFood.foodKCalPerDish * int.parse(dish.text)).toInt();
     Get.back(result: customFood);
   }
 
@@ -81,7 +61,7 @@ class _AddCustomFoodState extends State<AddCustomFood> {
               child: Center(
                 child: TextField(
                   style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
-                  controller: FoodName,
+                  controller: foodName,
                   decoration: new InputDecoration(
                     hintText: "Food Name",
                     hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
@@ -122,10 +102,10 @@ class _AddCustomFoodState extends State<AddCustomFood> {
               ),
               child: Center(
                 child: TextField(
-                    style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
-                    readOnly: true,
-                    enabled: false,
-                    controller: timeField,
+                  style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
+                  controller: dish,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType : TextInputType.number,
                     decoration: new InputDecoration(
                       hintText: "Dish",
                       hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
@@ -166,11 +146,11 @@ class _AddCustomFoodState extends State<AddCustomFood> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        if(FoodName.text.isEmpty)
+                        if(foodName.text.isEmpty)
                           Constants.showDialog('Please enter food name');
                         else if(kcal.text.isEmpty)
                           Constants.showDialog('Please enter calories');
-                        else if(timeField.text.isEmpty)
+                        else if(dish.text.isEmpty)
                           Constants.showDialog('Please enter dish');
                         else
                         {

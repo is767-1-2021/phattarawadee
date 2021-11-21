@@ -27,6 +27,7 @@ class MenuPage extends StatelessWidget {
     ];
     final List<int> colorCodes = <int>[400, 200, 100];
     final List<Image> menu = <Image>[
+     // Image.network('gs://is767-2021-ondiet.appspot.com'),
       Image.asset('assets/images/image_1_big.png'),
       Image.asset('assets/images/image_2.png'),
       Image.asset('assets/images/plate1.png'),
