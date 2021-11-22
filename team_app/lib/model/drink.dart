@@ -8,8 +8,8 @@ class Drink{
 
   String drinkId = '';
   String drinkName = "";
-  double drinkKCalPerCup = 0;
-  int totalkcal = 0;
+  double totalkcal  = 0;
+  int drinkKCalPerCup = 0;
   int totalCups = 0;
   int userCupSelected = 0;
   int userBasedCalories = 0;
@@ -18,8 +18,8 @@ class Drink{
   {
     drinkId = data["drinkId"];
     drinkName = data["drinkName"];
-    drinkKCalPerCup =  data["kcal"];
     totalkcal = data['totalkcal'];
+    drinkKCalPerCup =  data["kcal"];
     totalCups = data['totalCups'];
     userCupSelected = data["userCupSelected"];
     userBasedCalories = data["userBasedCalories"];
@@ -30,9 +30,9 @@ class Drink{
   Map<String, dynamic> toJson() {
     return {
       "drinkId": this.drinkId,
-      "drinkName": this.drinkName,  
-      "drinkKCalPerCup": this.drinkKCalPerCup, 
+      "drinkName": this.drinkName,   
       "totalkcal": this.totalkcal,  
+      "drinkKCalPerCup": this.drinkKCalPerCup,
       "totalCups": this.totalCups,  
       "userCupSelected" : this.userCupSelected,   
       "userBasedCalories": this.userBasedCalories 
@@ -42,8 +42,8 @@ class Drink{
   Drink.fromSavedJson(Map<String, dynamic> data) {
     drinkId = data["drinkId"];
     drinkName = data["drinkName"];
-    drinkKCalPerCup =  data["drinkKCalPerCup"];
     totalkcal = data['totalkcal'];
+    drinkKCalPerCup =  data["drinkKCalPerCup"];
     totalCups = data['totalCups'];
     userCupSelected = data["userCupSelected"];
     userBasedCalories = data["userBasedCalories"];

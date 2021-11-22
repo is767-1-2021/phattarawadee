@@ -24,12 +24,12 @@ class _AddCustomDrinkState extends State<AddCustomDrink> {
     Drink customDrink = Drink.fromEmpty();
     customDrink.drinkId = DateTime.now().millisecondsSinceEpoch.toString();
     customDrink.drinkName = drinkName.text; 
-    customDrink.totalkcal = int.parse(kcal.text);
+    customDrink.drinkKCalPerCup = int.parse(kcal.text);
     customDrink.totalCups = totalCups;
-    customDrink.drinkKCalPerCup = customDrink.totalkcal/customDrink.totalCups;
+    customDrink.totalkcal = customDrink.drinkKCalPerCup/(1/customDrink.totalCups);
     customDrink.userCupSelected = int.parse(cup.text);
-    customDrink.userBasedCalories = (customDrink.drinkKCalPerCup * int.parse(cup.text)).toInt();
-    DrinkController().addAllDrinks(customDrink.drinkId,customDrink.drinkName,customDrink.drinkKCalPerCup);
+    customDrink.userBasedCalories = (customDrink.totalkcal).toInt();
+    DrinkController().addAllDrinks(customDrink.drinkId,customDrink.drinkName,customDrink.totalkcal);
     Get.back(result: customDrink);
   }
 
