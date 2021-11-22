@@ -52,7 +52,7 @@ class DrinkController {
         {
           print(result.data);
           Map drinkData = result.data();
-          drinkData['exerciseId'] = result.id;
+          drinkData['drinkId'] = result.id;
           Drink drink = Drink(drinkData);
           drinkList.add(drink);
         });

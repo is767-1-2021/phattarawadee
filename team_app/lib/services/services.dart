@@ -26,3 +26,6 @@ class FirebaseServices extends Services {
     return drinks.drinks;
   }
 }*/
+
+//class FirebaseStorage {
+//}

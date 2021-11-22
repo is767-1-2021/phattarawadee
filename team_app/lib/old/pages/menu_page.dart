@@ -1,8 +1,40 @@
+import 'package:exercise_app/old/pages/menu_detail.dart';
+import 'package:exercise_app/services/services.dart';
 import 'package:flutter/material.dart';
 
-import 'menu_detail.dart';
 
-class MenuPage extends StatelessWidget {
+
+class MenuPage extends StatefulWidget {
+  @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+
+class _MenuPageState extends State<MenuPage> {
+   
+ /* var storage = FirebaseStorage.instance;
+  late List<AssetImage> listOfMenu;
+  bool clicked = false;
+  List<String?> listOfStr = [];
+  String? menu;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+  super.initState();
+  getImages();
+}
+
+void getImages() {
+  listOfMenu = [];
+  for (int i = 0; i < 10; i++) {
+    listOfMenu.add(
+        AssetImage('assets/images/plate' + i.toString() + '.png'),
+
+        );
+  }
+ }*/
+
   @override
   Widget build(BuildContext context) {
     final List<String> entries = <String>[
@@ -27,15 +59,23 @@ class MenuPage extends StatelessWidget {
     ];
     final List<int> colorCodes = <int>[400, 200, 100];
     final List<Image> menu = <Image>[
-     // Image.network('gs://is767-2021-ondiet.appspot.com'),
-      Image.asset('assets/images/image_1_big.png'),
-      Image.asset('assets/images/image_2.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate7.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate8.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate1.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate4.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate5.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate6.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate2.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate3.png'),
+
+      /*Image.asset('assets/images/plate7.png'),
+      Image.asset('assets/images/plate8.png'),
       Image.asset('assets/images/plate1.png'),
       Image.asset('assets/images/plate4.png'),
       Image.asset('assets/images/plate5.png'),
       Image.asset('assets/images/plate6.png'),
       Image.asset('assets/images/plate2.png'),
-      Image.asset('assets/images/plate3.png')
+      Image.asset('assets/images/plate3.png')*/
     ];
     return Scaffold(
       appBar: AppBar(
@@ -62,11 +102,12 @@ class MenuPage extends StatelessWidget {
         itemCount: entries.length,
         itemBuilder: (context, index) {
           return MenuTile(
-            item: MenuItem(
+              item: MenuItem(
               name: '${entries[index]}',
               cal: '${entries2[index]}',
               colorShade: colorCodes[index % 3],
               menu: menu[index],
+            
             ),
           );
         },
@@ -81,6 +122,7 @@ class MenuItem {
   final String cal;
   final int colorShade;
   final Image menu;
+  
 
   const MenuItem({
     Key? key,

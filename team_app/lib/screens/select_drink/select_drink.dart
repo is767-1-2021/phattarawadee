@@ -108,7 +108,7 @@ class _SelectDrinkState extends State<SelectDrink> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Exercises
-            if(drinks.length > 0)
+            if(drinks.length == 0)
             Container(
               height: SizeConfig.blockSizeVertical * 7,
               decoration: BoxDecoration(
@@ -237,7 +237,7 @@ class _SelectDrinkState extends State<SelectDrink> {
 
 
               Text(
-                '${drink. drinkKCalPerCup} kcal',
+                '${drink.drinkKCalPerCup} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,

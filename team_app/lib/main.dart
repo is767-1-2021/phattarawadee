@@ -1,6 +1,8 @@
+import 'package:exercise_app/screens/home/dashboard.dart';
 import 'package:exercise_app/screens/home/drinkpage.dart';
 import 'package:exercise_app/screens/home/foodpage.dart';
 import 'package:exercise_app/screens/home/home.dart';
+import 'package:exercise_app/old/pages/menu_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'old/pages/BMICalculatorScreen.dart';
 import 'old/pages/Home_menu.dart';
 import 'old/pages/daily_meal.dart';
-import 'old/pages/menu_page.dart';
 import 'old/pages/score_result.dart';
 import 'old/pages/sitemap.dart';
 import 'old/pages/welcome.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomeScreen(),
-        initialRoute: '/eleven',
+        initialRoute:  '/ten',
         routes: <String, WidgetBuilder>{
           '/one': (context) => Welcome(),
           '/two': (context) => BMICalculatorScreen(),
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           '/seven': (context) => SixthPage(),
           '/eight': (context) => Home(),
           '/nine': (context) => workout(),
-          '/ten': (context) => result(),
+          '/ten': (context) => Dashboard(),
           '/eleven': (context) => DrinkPage(),
           '/twelve': (context) => FoodPage(),
         });
