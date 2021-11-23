@@ -11,27 +11,30 @@ class WebViewExample extends StatefulWidget {
 }
 
 class _WebViewExampleState extends State<WebViewExample> {
+  
   @override
   void initState() {
     super.initState();
     // Enable hybrid composition.
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
-          appBar: AppBar(title: Text("News!"), actions: [
+          appBar: AppBar(title: Text("News!"), 
+           leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          }
+          ,icon: Icon(Icons.menu),
+        ),
+          actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => sitemap(),
-                    ),
-                  );
+                   Navigator.pop(context);
                 },
                 icon: Icon(Icons.arrow_back)),
             /*IconButton(onPressed: () {}, icon: Icon(Icons.agriculture)),

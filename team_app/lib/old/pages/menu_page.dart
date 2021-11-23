@@ -59,23 +59,23 @@ void getImages() {
     ];
     final List<int> colorCodes = <int>[400, 200, 100];
     final List<Image> menu = <Image>[
-      Image.network('gs://is767-2021-ondiet.appspot.com/plate7.png'),
+      /*Image.network('gs://is767-2021-ondiet.appspot.com/plate7.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate8.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate1.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate4.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate5.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate6.png'),
       Image.network('gs://is767-2021-ondiet.appspot.com/plate2.png'),
-      Image.network('gs://is767-2021-ondiet.appspot.com/plate3.png'),
+      Image.network('gs://is767-2021-ondiet.appspot.com/plate3.png'),*/
 
-      /*Image.asset('assets/images/plate7.png'),
+      Image.asset('assets/images/plate7.png'),
       Image.asset('assets/images/plate8.png'),
       Image.asset('assets/images/plate1.png'),
       Image.asset('assets/images/plate4.png'),
       Image.asset('assets/images/plate5.png'),
       Image.asset('assets/images/plate6.png'),
       Image.asset('assets/images/plate2.png'),
-      Image.asset('assets/images/plate3.png')*/
+      Image.asset('assets/images/plate3.png')
     ];
     return Scaffold(
       appBar: AppBar(

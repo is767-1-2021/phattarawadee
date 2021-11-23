@@ -11,7 +11,7 @@ class DrinkController {
   Future addAllDrinks(String drinkId, String drinkName, double totalkcal) async {
    try {   
       int kCal = (totalkcal * 1).toInt();
-      dynamic result = await firestoreInstance.collection("Drinks").doc(drinkId).set({
+      dynamic result = await firestoreInstance.collection("drinks").doc(drinkId).set({
         'drinkName': drinkName,
         'kCal': kCal,
         'totalCup' : 1,
@@ -46,7 +46,7 @@ class DrinkController {
   Future getAllDrinks() async {
     List<Drink> drinkList = [];
     try {
-      dynamic result = await firestoreInstance.collection("Drinks")
+      dynamic result = await firestoreInstance.collection("drinks")
       .get().then((value) {
       value.docs.forEach((result) 
         {
