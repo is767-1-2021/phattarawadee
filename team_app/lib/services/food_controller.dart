@@ -8,46 +8,14 @@ class FoodController {
   final firestoreInstance = FirebaseFirestore.instance;
 
   //Delivery Areas via CSV
-  Future addAllFoods(List<List<dynamic>> data) async {
-    try {
-      dynamic result = true;
-      for(int i =1; i < data.length; i ++)
-      {
-        String name =  data[i][0];
-        int kcal = data[i][1];
-        await firestoreInstance.collection("Foods").add({
-          'FoodName': name,
-          'kcal': kcal,
-          'totalDishes' : 1,
-          'totalkcal' : (kcal*1)
-        }).then((doc) async {
-          print("success!");
-          return true;
-        }).catchError((error) {
-          print("Failed to add user: $error");
-          return false;
-        });
-      }
-
-      if (result)
-      {
-        Map finalResponse = <dynamic, dynamic>{}; //empty map
-        finalResponse['Status'] = "Success";
-        return finalResponse;
-      }
-    } catch (e) {
-      print(e.toString());
-      return setUpFailure();
-    }
-  }
-
-  Future addFood(String FoodName, int kCal, int totalDishes) async {
+  Future addAllFoods(String foodId, String foodName, double totalkcal) async {
     try {   
-      dynamic result = await firestoreInstance.collection("Foods").add({
-        'FoodName': FoodName,
-        'kcal': kCal,
-        'totalDishes' : totalDishes,
-        'totalkcal' : (kCal*totalDishes)
+      int kCal = (totalkcal * 1).toInt();
+      dynamic result = await firestoreInstance.collection("Foods").doc(foodId).set({
+        'foodName': foodName,
+        'kCal': kCal,
+        'totalDish' : 1,
+        'totalkcal' : totalkcal
       }).then((doc) async {
         print("success!");
         return true;
@@ -94,11 +62,11 @@ class FoodController {
       if (result)
       {
         foodList.sort((a, b) => a.foodName.toString().compareTo(b.foodName.toString()));
-        return foodList;
+        return  foodList;
       }
       else
       {
-        return foodList;
+        return  foodList;
       }
     } catch (e) {
       print(e.toString());

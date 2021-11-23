@@ -29,7 +29,33 @@ class _FoodPageState extends State<FoodPage> {
   String totalCalories = "-";
   String totalDishes = "0";
 
+  @override
+  void initState() {
+    super.initState();
+    currentCalenderMonth = monthNames[DateTime.now().month-1];
+    selectedHeading = 'Today';
+    loadSavedFoodForSelectedDay();
+  }
 
+  Future<void> loadSavedFoodForSelectedDay() async {
+    selectedDateFoods = await Food.getSavedFoodsForDate(userSelectedDate);
+    setState(() {
+      calculateTotalCaloriesBurnedAndHours();
+    });
+  }
+
+  void calculateTotalCaloriesBurnedAndHours() {
+    double totalDishesOfFood = 0;
+    int calories = 0;
+    for(int i=0; i < selectedDateFoods.length; i++)
+    {
+      totalDishesOfFood = (selectedDateFoods[i].userDishSelected) + totalDishesOfFood;
+      calories = selectedDateFoods[i].userBasedCalories + calories;
+    }
+    totalCalories = calories.toString();
+    RegExp regex = RegExp(r"([.]*0)(?!.*\d)");
+    totalDishes = totalDishesOfFood.toString().replaceAll(regex, "");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +137,7 @@ class _FoodPageState extends State<FoodPage> {
                           selectedHeading = DateFormat('EEEE, MMM dd').format(_selectedDay!);
                         userSelectedDate = _selectedDay!;
                         showCalender = false;
+                        loadSavedFoodForSelectedDay();
                       });
                     }
                   },
@@ -200,6 +227,7 @@ class _FoodPageState extends State<FoodPage> {
                       onTap: () async {
                         await Get.to(SelectFood(selectedDateText: selectedHeading, selectedDate: userSelectedDate,selectedDayFoodList : selectedDateFoods));
                         setState(() {
+                          calculateTotalCaloriesBurnedAndHours();
                         });
                       },
                       leading: Container(
@@ -298,7 +326,17 @@ class _FoodPageState extends State<FoodPage> {
             ),
           ),
         ),
-
+        trailing: Container(
+          margin: EdgeInsets.only(right: 10),
+          child: Text(
+            '${food.userBasedCalories}',
+            style: TextStyle(
+              fontSize: SizeConfig.fontSize * 1.8,
+              fontWeight: FontWeight.w500,
+              color: Colors.green
+            ),
+          ),
+        ),
       )
     );
   }

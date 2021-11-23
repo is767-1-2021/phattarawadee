@@ -1,23 +1,27 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Food{
 
   String foodId = '';
   String foodName = "";
+  double totalkcal = 0;
   int foodKCalPerDish = 0;
   int totalDishes = 0;
-  int userDishselected = 0;
+  int userDishSelected = 0;
   int userBasedCalories = 0;
 
   Food(Map data)
   {
     foodId = data["foodId"];
     foodName = data["foodName"];
-    totalDishes = data['totalDishes'];
+    totalkcal = data['totalkcal'];
     foodKCalPerDish =  data["kcal"];
-    userDishselected = data["userDishSelected"];
+    totalDishes = data['totalDishes'];
+    userDishSelected = data["userDishSelected"];
     userBasedCalories = data["userBasedCalories"];
   }
 
@@ -26,10 +30,11 @@ class Food{
   Map<String, dynamic> toJson() {
     return {
       "foodId": this.foodId,
-      "foodName": this.foodName,
-      "totalDishes": this.totalDishes,    
-      "foodKCalPerDish": this.foodKCalPerDish, 
-      "userDishSelected" : this.userDishselected,   
+      "foodName": this.foodName, 
+      "totalkcal": this.totalkcal,
+      "foodKCalPerDish": this.foodKCalPerDish,
+      "totalDishes": this.totalDishes, 
+      "userDishSelected" : this.userDishSelected,   
       "userBasedCalories": this.userBasedCalories 
     };
   }
@@ -37,9 +42,10 @@ class Food{
   Food.fromSavedJson(Map<String, dynamic> data) {
     foodId = data["foodId"];
     foodName = data["foodName"];
-    totalDishes = data['totalDishes'];
+    totalkcal = data['totalkcal'];
     foodKCalPerDish =  data["foodKCalPerDish"];
-    userDishselected = data["userDishSelected"];
+    totalDishes = data['totalDishes'];
+    userDishSelected = data["userDishSelected"];
     userBasedCalories = data["userBasedCalories"];
     
   }

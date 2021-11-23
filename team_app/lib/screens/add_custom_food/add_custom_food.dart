@@ -1,4 +1,5 @@
 import 'package:exercise_app/model/food.dart';
+import 'package:exercise_app/services/food_controller.dart';
 import 'package:exercise_app/utils/constants.dart';
 import 'package:exercise_app/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,17 @@ class _AddCustomFoodState extends State<AddCustomFood> {
   TextEditingController dish = TextEditingController();
   TimeOfDay? timeUser;
 
-   void saveFood(){
-    int totalCups =  int.parse(dish.text);
+  void saveFood(){
+    int totalDishes =  int.parse(dish.text);
     Food customFood = Food.fromEmpty();
     customFood.foodId = DateTime.now().millisecondsSinceEpoch.toString();
     customFood.foodName = foodName.text; 
-    customFood.totalDishes = totalCups;
     customFood.foodKCalPerDish = int.parse(kcal.text);
-    customFood.userDishselected = int.parse(dish.text);
-    customFood.userBasedCalories = (customFood.foodKCalPerDish * int.parse(dish.text)).toInt();
+    customFood.totalDishes = totalDishes;
+    customFood.totalkcal = customFood.foodKCalPerDish/(1/customFood.totalDishes);
+    customFood.userDishSelected = int.parse(dish.text);
+    customFood.userBasedCalories = (customFood.totalkcal).toInt();
+    FoodController().addAllFoods(customFood.foodId,customFood.foodName,customFood.totalkcal);
     Get.back(result: customFood);
   }
 
