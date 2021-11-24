@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "818638033842",
+    "firebase_url": "https://is767-2021-ondiet-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "is767-2021-ondiet",
     "storage_bucket": "is767-2021-ondiet.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
@@ -58,6 +66,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
@@ -87,6 +102,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
@@ -116,6 +138,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
@@ -145,6 +174,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
@@ -174,6 +210,13 @@
             {
               "client_id": "818638033842-hujv9odbdvkj0rvlc518sl67egf0ub23.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "818638033842-4cffai5gchfpkn9v8a0s9iesu48592lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msmistu15.ondiet"
+              }
             }
           ]
         }
