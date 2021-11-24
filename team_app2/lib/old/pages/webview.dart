@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:exercise_app/old/pages/sitemap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewExample extends StatefulWidget {
@@ -22,9 +23,18 @@ class _WebViewExampleState extends State<WebViewExample> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'News!',
+      theme: ThemeData(
+          textTheme: GoogleFonts.latoTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          primarySwatch: Colors.green,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
       home: Scaffold(
           appBar: AppBar(title: Text("News!"), 
+          
+         
            leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

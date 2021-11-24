@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'bmi_bmr/pages/BMICalculatorScreen.dart';
 import 'old/pages/Home_menu.dart';
 import 'old/pages/daily_meal.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomeScreen(),
-        initialRoute:  '/13',
+        initialRoute:  '/14',
         routes: <String, WidgetBuilder>{
           '/one': (context) => Welcome(),
           '/two': (context) => BMICalculatorScreen(),
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
           '/eleven': (context) => DrinkPage(),
           '/twelve': (context) => FoodPage(),
           '/13': (context) => LoginPage(),
+          '/14': (context) => WebViewExample(),
         
         });
   }
