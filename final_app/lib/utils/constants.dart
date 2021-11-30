@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 class Constants {
   static final Constants _singleton = new Constants._internal();
-  static Color appThemeColor = Colors.green;
+  static String appName = "final App";
+  static Color appThemeColor = Colors.greenAccent;
 
   factory Constants() {
     return _singleton;
